@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/my-nodejs-app
+    destination: /home/ubuntu/my-nodejs-app
 
 hooks:
   BeforeInstall:
@@ -16,7 +16,7 @@ pm2 stop my-nodejs-app || true
   AfterInstall:
     - location: #!/bin/bash
 echo "Installing dependencies..."
-cd /home/ec2-user/my-nodejs-app
+cd /home/ubuntu/my-nodejs-app
 npm install
 
       timeout: 300
@@ -24,7 +24,7 @@ npm install
   ApplicationStart:
     - location: #!/bin/bash
 echo "Starting application..."
-cd /home/ec2-user/my-nodejs-app
+cd /home/ubuntu/my-nodejs-app
 # Start the application (adjust the command as needed)
 pm2 start app.js --name my-nodejs-app
 
@@ -33,7 +33,7 @@ pm2 start app.js --name my-nodejs-app
   ApplicationStop:
     - location: #!/bin/bash
 echo "Stopping application..."
-cd /home/ec2-user/my-nodejs-app
+cd /home/ubuntu/my-nodejs-app
 # Stop the application (adjust the command as needed)
 pm2 stop my-nodejs-app || true
 
