@@ -20,6 +20,12 @@ phases:
     commands:
       - echo building...
       - npm run build
+      - echo "Checking current directory"
+      - pwd  # This prints the current working directory
+      - echo "Listing contents of the current directory"
+      - ls -al  # This lists all files in the current directory
+      - echo "Listing contents of the build/ directory (if exists)"
+      - ls -al build/  # This checks if the build directory exists and lists its contents
 
 artifacts:
   files:
