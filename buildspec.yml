@@ -31,4 +31,4 @@ artifacts:
   files:
     - "**/*"
   discard-paths: no
-  base-directory: build
+  base-directory: /codebuild/output/src2786975624/src
