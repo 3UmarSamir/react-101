@@ -6,22 +6,44 @@ files:
 
 hooks:
   BeforeInstall:
-    - location: scripts/before_install.sh
+    - location: #!/bin/bash
+echo "Stopping existing application..."
+# Stop the application if it's running (adjust the command as needed)
+pm2 stop my-nodejs-app || true
+
       timeout: 300
-      runas: root
+      runas: ubuntu
   AfterInstall:
-    - location: scripts/after_install.sh
+    - location: #!/bin/bash
+echo "Installing dependencies..."
+cd /home/ec2-user/my-nodejs-app
+npm install
+
       timeout: 300
-      runas: root
+      runas: ubuntu
   ApplicationStart:
-    - location: scripts/application_start.sh
+    - location: #!/bin/bash
+echo "Starting application..."
+cd /home/ec2-user/my-nodejs-app
+# Start the application (adjust the command as needed)
+pm2 start app.js --name my-nodejs-app
+
       timeout: 300
-      runas: ec2-user
+      runas: ubuntu
   ApplicationStop:
-    - location: scripts/application_stop.sh
+    - location: #!/bin/bash
+echo "Stopping application..."
+cd /home/ec2-user/my-nodejs-app
+# Stop the application (adjust the command as needed)
+pm2 stop my-nodejs-app || true
+
       timeout: 300
-      runas: ec2-user
+      runas: ubuntu
   ValidateService:
-    - location: scripts/validate_service.sh
+    - location: #!/bin/bash
+echo "Validating application..."
+# Check if the application is running (adjust the command as needed)
+curl -f http://localhost:3000/ || exit 1
+
       timeout: 300
-      runas: ec2-user
+      runas: ubuntu
